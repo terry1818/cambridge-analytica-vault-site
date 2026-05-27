@@ -1,0 +1,18 @@
+# Build output
+public/
+
+# Node modules
+node_modules/
+
+# Quartz cache
+.quartz-cache/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+.idea/
+*.swp
