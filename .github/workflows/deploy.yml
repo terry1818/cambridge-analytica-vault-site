@@ -3,6 +3,9 @@ name: Deploy Quartz site to GitHub Pages
 on:
   push:
     branches: [main]
+  schedule:
+    # Auto-sync vault content every 30 minutes
+    - cron: '*/30 * * * *'
   workflow_dispatch:
 
 permissions:
@@ -23,6 +26,15 @@ jobs:
         with:
           submodules: recursive
           fetch-depth: 0
+
+      - name: Pull latest vault content (auto-sync)
+        run: |
+          cd content
+          git fetch origin main
+          git checkout origin/main
+          echo "Vault submodule now at:"
+          git log --oneline -1
+          cd ..
 
       - name: Setup Node
         uses: actions/setup-node@v4
