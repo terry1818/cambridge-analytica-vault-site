@@ -10,6 +10,8 @@ configuration:
     - private
     - templates
     - .obsidian
+    - Misc-Stubs
+    - 'Misc Stubs'
     - _templates
     - _attachments
     - 12-App-Backend
