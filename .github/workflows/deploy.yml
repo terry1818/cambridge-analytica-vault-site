@@ -53,18 +53,21 @@ jobs:
         uses: actions/cache@v4
         with:
           path: .quartz/plugins
-          key: ${{ runner.os }}-quartz-plugins-${{ hashFiles('quartz.lock.json') }}
+          key: ${{ runner.os }}-quartz-plugins-v2-${{ hashFiles('quartz.lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-quartz-plugins-
+            ${{ runner.os }}-quartz-plugins-v2-
 
       - name: Install npm dependencies
         run: npm ci
 
+      - name: Ensure Quartz CLI is executable
+        run: chmod +x quartz/bootstrap-cli.mjs
+
       - name: Install Quartz plugins
-        run: npx quartz plugin install
+        run: node ./quartz/bootstrap-cli.mjs plugin install
 
       - name: Build Quartz
-        run: npx quartz build
+        run: node ./quartz/bootstrap-cli.mjs build
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
